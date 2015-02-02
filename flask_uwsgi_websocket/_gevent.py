@@ -66,9 +66,13 @@ class GeventWebSocketMiddleware(WebSocketMiddleware):
 
         while True:
             if not client.connected:
+                print "%s (%s) client disconnected" % (client.id, environ["PATH_INFO"])
                 recv_queue.put(None)
+                print "%s (%s) `None` added to queue" % (client.id, environ["PATH_INFO"])
                 listening.kill()
+                print "%s (%s) listener killed" % (client.id, environ["PATH_INFO"])
                 handler.kill()
+                print "%s (%s) handler killed" % (client.id, environ["PATH_INFO"])
                 return ''
 
             # wait for event to draw our attention
